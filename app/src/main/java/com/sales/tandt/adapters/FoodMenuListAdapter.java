@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sales.tandt.R;
-import com.sales.tandt.activity.GenerateInvoiceActivity;
 import com.sales.tandt.listener.OnFoodItemAdded;
 import com.sales.tandt.models.FoodItems;
 

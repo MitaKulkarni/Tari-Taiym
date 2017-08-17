@@ -23,7 +23,7 @@
         android:layout_height="@dimen/height_120_dp"
         android:padding="@dimen/padding_8_dp"
         android:layout_marginTop="@dimen/margin_8_dp"
-        android:textSize="@dimen/text_size_18"
+        android:textSize="@dimen/text_size_16"
         android:background="@drawable/rect_with_white_bg"
         tools:text="Inovice" />
 
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8_dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:text="@string/send_btn_text"/>
 
 </LinearLayout>

@@ -77,6 +77,7 @@ public class AddMenuItemsActivity extends BaseActivity {
                hideProgressDialogs();
                 Toast.makeText(AddMenuItemsActivity.this, getString(R.string.add_food_item_success_msg), Toast.LENGTH_LONG);
                 startActivity(new Intent(AddMenuItemsActivity.this, FoodMenuListActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                AddMenuItemsActivity.this.finish();
             }
         }, new Response.ErrorListener() {
             @Override

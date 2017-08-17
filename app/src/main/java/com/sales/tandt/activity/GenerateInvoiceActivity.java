@@ -1,11 +1,11 @@
 package com.sales.tandt.activity;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -27,8 +27,6 @@ import com.sales.tandt.listener.OnFoodItemAdded;
 import com.sales.tandt.models.FoodItems;
 import com.sales.tandt.util.AppPermissionsConstants;
 
-import android.Manifest;
-
 import java.util.ArrayList;
 
 public class GenerateInvoiceActivity extends BaseActivity {
@@ -38,6 +36,7 @@ public class GenerateInvoiceActivity extends BaseActivity {
     private String mInvoiceDetails;
     private TextView mTotalTv;
     private ArrayList<FoodItems> mFoodItemList;
+    private Dialog mSmsDialog;
 
     @Override
     protected String getScreenName() {
@@ -60,7 +59,7 @@ public class GenerateInvoiceActivity extends BaseActivity {
         InvoiceGenerateListAdapter adapter = new InvoiceGenerateListAdapter(mFoodItemList);
         menuListRv.setAdapter(adapter);
 
-        mTotalTv= (TextView) findViewById(R.id.activity_generate_invoice_total_amt_tv);
+        mTotalTv = (TextView) findViewById(R.id.activity_generate_invoice_total_amt_tv);
         calculateTotal();
 
         adapter.setOnItemAddedListener(new OnFoodItemAdded() {
@@ -104,10 +103,10 @@ public class GenerateInvoiceActivity extends BaseActivity {
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.sms_dialog_layout, null);
-        Dialog dialog = new Dialog(this);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(dialogView);
+        mSmsDialog = new Dialog(this);
+        mSmsDialog.setCanceledOnTouchOutside(false);
+        mSmsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mSmsDialog.setContentView(dialogView);
 
         final EditText phoneEt = (EditText) dialogView.findViewById(R.id.sms_dialog_layout_phone_et);
         TextView invoiceDetailsTv = (TextView) dialogView.findViewById(R.id.sms_dialog_layout_invoice_text_tv);
@@ -122,14 +121,12 @@ public class GenerateInvoiceActivity extends BaseActivity {
             }
         });
 
-        dialog.show();
+        mSmsDialog.show();
 
     }
 
     private void checkPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.SEND_SMS)) {
                 showRationaleSendSmsDialog();
@@ -138,6 +135,8 @@ public class GenerateInvoiceActivity extends BaseActivity {
                         new String[]{Manifest.permission.SEND_SMS},
                         AppPermissionsConstants.PERMISSIONS_REQUEST_SEND_SMS);
             }
+        } else {
+            sendSms();
         }
     }
 
@@ -172,16 +171,23 @@ public class GenerateInvoiceActivity extends BaseActivity {
             case AppPermissionsConstants.PERMISSIONS_REQUEST_SEND_SMS: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(mPhoneNo, null, mInvoiceDetails, null, null);
-                    Toast.makeText(getApplicationContext(), "SMS sent.",
-                            Toast.LENGTH_LONG).show();
+                    sendSms();
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "SMS failed, please try again.", Toast.LENGTH_LONG).show();
                 }
             }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    private void sendSms() {
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(mPhoneNo, null, mInvoiceDetails, null, null);
+        Toast.makeText(getApplicationContext(), "SMS sent.",
+                Toast.LENGTH_LONG).show();
+        mSmsDialog.hide();
     }
 
 }
