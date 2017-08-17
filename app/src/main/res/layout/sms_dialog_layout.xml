@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="300dp"
+    android:padding="@dimen/padding_8_dp"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/sms_dialog_layout_phone_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone_hint"
+        android:layout_marginTop="@dimen/margin_8_dp"
+        android:inputType="phone" />
+
+    <TextView
+        android:id="@+id/sms_dialog_layout_invoice_text_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_120_dp"
+        android:padding="@dimen/padding_8_dp"
+        android:layout_marginTop="@dimen/margin_8_dp"
+        android:textSize="@dimen/text_size_18"
+        android:background="@drawable/rect_with_white_bg"
+        tools:text="Inovice" />
+
+    <Button
+        android:id="@+id/sms_dialog_layout_send_bt"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8_dp"
+        android:layout_gravity="right"
+        android:text="@string/send_btn_text"/>
+
+</LinearLayout>

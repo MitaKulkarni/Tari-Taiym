@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_activity_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/base_activity_status_bar_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/base_activity_content_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:visibility="gone">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/base_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginBottom="@dimen/margin_3_dp"
+            android:background="@color/White"
+            android:elevation="@dimen/elevation_4_dp">
+
+            <TextView
+                android:id="@+id/base_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center"
+                android:elevation="@dimen/elevation_5_dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:lines="1"
+                android:textColor="@color/Grey"
+                android:textSize="@dimen/text_size_16"
+                android:visibility="gone" />
+        </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/progress_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:background="@android:color/transparent">
+
+        <RelativeLayout
+            android:id="@+id/progress_dialog_layout"
+            android:layout_width="@dimen/width_80_dp"
+            android:layout_height="@dimen/height_80_dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/view_progress_dialog_bg"
+            android:elevation="@dimen/elevation_10_dp"
+            android:gravity="center">
+
+            <include
+                android:id="@+id/progress_dialog_view"
+                layout="@layout/view_progress_dialog" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

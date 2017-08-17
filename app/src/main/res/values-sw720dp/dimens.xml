@@ -1,0 +1,59 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">24dp</dimen>
+    <dimen name="activity_vertical_margin">24dp</dimen>
+
+    <!--new reusable dimensions-->
+
+    <!--   padding  -->
+    <dimen name="padding_2_dp">2dp</dimen>
+    <dimen name="padding_3_dp">4.5dp</dimen>
+    <dimen name="padding_4_dp">6dp</dimen>
+    <dimen name="padding_5_dp">7.5dp</dimen>
+    <dimen name="padding_6_dp">9dp</dimen>
+    <dimen name="padding_8_dp">8dp</dimen>
+    <dimen name="padding_10_dp">15dp</dimen>
+    <dimen name="padding_15_dp">22.5dp</dimen>
+    <dimen name="padding_16_dp">24dp</dimen>
+    <dimen name="padding_20_dp">30dp</dimen>
+
+    <!--   margin  -->
+    <dimen name="margin_2_dp">3dp</dimen>
+    <dimen name="margin_3_dp">4.5dp</dimen>
+    <dimen name="margin_4_dp">6dp</dimen>
+    <dimen name="margin_5_dp">7.5dp</dimen>
+    <dimen name="margin_6_dp">9dp</dimen>
+    <dimen name="margin_8_dp">12dp</dimen>
+    <dimen name="margin_10_dp">15dp</dimen>
+    <dimen name="margin_12_dp">18dp</dimen>
+    <dimen name="margin_15_dp">22.5dp</dimen>
+    <dimen name="margin_17_dp">25.5dp</dimen>
+    <dimen name="margin_20_dp">30dp</dimen>
+    <dimen name="margin_22_dp">33dp</dimen>
+    <dimen name="margin_25_dp">37.5dp</dimen>
+
+    <!--   height  -->
+    <dimen name="height_1_dp">1.5dp</dimen>
+    <dimen name="height_50_dp">75dp</dimen>
+    <dimen name="height_100_dp">150dp</dimen>
+    <dimen name="height_120_dp">180dp</dimen>
+    <dimen name="height_140_dp">210dp</dimen>
+
+    <!--   width  -->
+    <dimen name="width_50_dp">75dp</dimen>
+    <dimen name="width_80_dp">120dp</dimen>
+    <dimen name="width_270_dp">405dp</dimen>
+    <dimen name="width_100_dp">150dp</dimen>
+    <dimen name="width_120_dp">180dp</dimen>
+    <dimen name="width_140_dp">210dp</dimen>
+
+    <!-- icon size -->
+    <dimen name="icon_size_14dp">21dp</dimen>
+    <dimen name="icon_size_70">105dp</dimen>
+
+    <!-- elevation -->
+    <dimen name="elevation_4_dp">6dp</dimen>
+    <dimen name="elevation_5_dp">7.5dp</dimen>
+    <dimen name="elevation_10_dp">15dp</dimen>
+
+</resources>

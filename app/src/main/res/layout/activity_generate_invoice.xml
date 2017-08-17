@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?android:attr/actionBarSize"
+    android:orientation="vertical">
+    tools:context="com.sales.tandt.activity.GenerateInvoiceActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_generate_invoice_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_8_dp"
+        android:padding="@dimen/padding_8_dp"
+        android:scrollbars="none" />
+
+    <Button
+        android:id="@+id/activity_generate_invoice_send_sms_btn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/send_sms_btn_text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@id/activity_generate_invoice_send_sms_btn">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_lbl"/>
+
+        <TextView
+            android:id="@+id/activity_generate_invoice_total_amt_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

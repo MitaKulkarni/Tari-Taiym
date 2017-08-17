@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?android:attr/actionBarSize"
+    tools:context="com.sales.tandt.activity.FoodMenuListActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_menu_list_food_menu_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_8_dp"
+        android:padding="@dimen/padding_8_dp"
+        android:scrollbars="none" />
+
+    <Button
+        android:id="@+id/activity_menu_list_submit_btn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_50_dp"
+        android:layout_alignParentBottom="true"
+        android:text="Submit" />
+
+</RelativeLayout>
