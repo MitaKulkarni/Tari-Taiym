@@ -1,5 +1,6 @@
 package com.sales.tandt.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -7,11 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.sales.tandt.AppConstants;
 import com.sales.tandt.R;
 import com.sales.tandt.controller.AppController;
 import com.sales.tandt.util.RequestUrl;
@@ -59,9 +62,9 @@ public class AddMenuItemsActivity extends BaseActivity {
     private void sentDataToServer(String dishName, String price, String categoryType) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("name", dishName);
-            jsonObject.put("price", Integer.parseInt(price));
-            jsonObject.put("type", categoryType);
+            jsonObject.put(AppConstants.JsonConstants.name, dishName);
+            jsonObject.put(AppConstants.JsonConstants.price, Integer.parseInt(price));
+            jsonObject.put(AppConstants.JsonConstants.type, categoryType);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -72,13 +75,14 @@ public class AddMenuItemsActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject jsonObject) {
                hideProgressDialogs();
-                AppController.getInstance().sendToast(AddMenuItemsActivity.this, "Successfully added the food item!");
+                Toast.makeText(AddMenuItemsActivity.this, getString(R.string.add_food_item_success_msg), Toast.LENGTH_LONG);
+                startActivity(new Intent(AddMenuItemsActivity.this, FoodMenuListActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                hideProgressDialogs();
-                AppController.getInstance().sendToast(AddMenuItemsActivity.this, "Error in sending the network request. Please try again after some time.");
+                Toast.makeText(AddMenuItemsActivity.this, getString(R.string.error_connecting), Toast.LENGTH_LONG);
             }
         });
 
@@ -86,5 +90,11 @@ public class AddMenuItemsActivity extends BaseActivity {
         addMenuTask.setShouldCache(false);
         AppController.getInstance().setRetryPolicy(addMenuTask);
         AppController.getInstance().addToRequestQueue(addMenuTask);
+    }
+
+    @Override
+    protected void onDestroy() {
+        AppController.getInstance().cancelPendingRequests(TAG);
+        super.onDestroy();
     }
 }

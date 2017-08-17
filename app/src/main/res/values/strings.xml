@@ -25,4 +25,6 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="total_lbl">Total</string>
     <string name="total_cart_amount">Rs. %d</string>
+    <string name="error_connecting">Error in sending the network request. Please try again after some time.</string>
+    <string name="add_food_item_success_msg">Successfully added the food item!</string>
 </resources>

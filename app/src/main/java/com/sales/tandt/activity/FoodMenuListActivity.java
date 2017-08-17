@@ -114,4 +114,10 @@ public class FoodMenuListActivity extends BaseActivity implements OnFoodItemAdde
     public void onItemRemoved(FoodItems foodItems) {
         mFoodItemList.remove(foodItems);
     }
+
+    @Override
+    protected void onDestroy() {
+        AppController.getInstance().cancelPendingRequests(TAG);
+        super.onDestroy();
+    }
 }

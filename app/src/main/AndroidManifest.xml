@@ -47,14 +47,30 @@
         <activity
             android:name="com.sales.tandt.activity.AddMenuItemsActivity"
             android:theme="@style/NoTitleBarTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.MainActivity"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
         <activity
             android:name="com.sales.tandt.activity.GenerateInvoiceActivity"
             android:theme="@style/NoTitleBarTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
         <activity
             android:name="com.sales.tandt.activity.FoodMenuListActivity"
             android:theme="@style/NoTitleBarTheme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
     </application>
 </manifest>
