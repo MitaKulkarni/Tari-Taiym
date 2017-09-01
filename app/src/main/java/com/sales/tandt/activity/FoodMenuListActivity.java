@@ -28,6 +28,7 @@ public class FoodMenuListActivity extends BaseActivity implements OnFoodItemAdde
     private ArrayList<FoodCategory> mCategoryList;
     private RecyclerView mMenuListRv;
     private ArrayList<FoodItems> mFoodItemList;
+    private Button mSubmitBt;
 
     @Override
     protected String getScreenName() {
@@ -49,8 +50,8 @@ public class FoodMenuListActivity extends BaseActivity implements OnFoodItemAdde
         mFoodItemList =  new ArrayList<>();
         getDataToServer();
 
-        Button submitBt = (Button) findViewById(R.id.activity_menu_list_submit_btn);
-        submitBt.setOnClickListener(new View.OnClickListener() {
+        mSubmitBt = (Button) findViewById(R.id.activity_menu_list_submit_btn);
+        mSubmitBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FoodMenuListActivity.this, GenerateInvoiceActivity.class);
@@ -108,11 +109,18 @@ public class FoodMenuListActivity extends BaseActivity implements OnFoodItemAdde
     @Override
     public void onItemAdded(FoodItems foodItems) {
         mFoodItemList.add(foodItems);
+        if(!mSubmitBt.isEnabled())
+            mSubmitBt.setEnabled(true);
     }
 
     @Override
     public void onItemRemoved(FoodItems foodItems) {
         mFoodItemList.remove(foodItems);
+        if(mFoodItemList.size() == 0)
+        {
+            if(mSubmitBt.isEnabled())
+                mSubmitBt.setEnabled(false);
+        }
     }
 
     @Override

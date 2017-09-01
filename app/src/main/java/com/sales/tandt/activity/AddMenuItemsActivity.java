@@ -65,7 +65,7 @@ public class AddMenuItemsActivity extends BaseActivity {
         if (Utilities.isNetworkAvailable(AddMenuItemsActivity.this)) {
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put(AppConstants.JsonConstants.name, dishName);
+                jsonObject.put(AppConstants.JsonConstants.NAME , dishName);
                 jsonObject.put(AppConstants.JsonConstants.PRICE, Integer.parseInt(price));
                 jsonObject.put(AppConstants.JsonConstants.TYPE, categoryType);
 

@@ -3,7 +3,7 @@
     <color name="bright_foreground_color">#80000000</color>
     <color name="colorPrimary">#07DED7</color>
     <color name="colorPrimaryDark">#16AAA1</color>
-    <color name="colorAccent">#145873</color>
+    <color name="colorAccent">#f9545b</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>

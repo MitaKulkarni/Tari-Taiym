@@ -104,7 +104,7 @@ public class GenerateInvoiceActivity extends BaseActivity {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put(AppConstants.JsonConstants.PHONE, phone);
-                jsonObject.put(AppConstants.JsonConstants.INVOICE,invoice);
+                jsonObject.put(AppConstants.JsonConstants.INVOICE, invoice);
                 jsonObject.put(AppConstants.JsonConstants.TOTAL_AMOUNT, total);
                 jsonObject.put(AppConstants.JsonConstants.SUBSCRIBE, subscribe);
 
@@ -170,7 +170,7 @@ public class GenerateInvoiceActivity extends BaseActivity {
             public void onClick(View v) {
 
                 mPhoneNo = phoneEt.getText().toString();
-                sentDataToServer(mPhoneNo,mInvoiceDetails, mTotalAmount,subscribeCb.isChecked());
+                sentDataToServer(mPhoneNo, mInvoiceDetails, mTotalAmount, subscribeCb.isChecked());
                 checkPermission();
             }
         });
