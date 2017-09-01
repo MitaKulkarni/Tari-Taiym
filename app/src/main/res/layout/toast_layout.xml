@@ -13,18 +13,4 @@
         android:gravity="center"
         android:textColor="@color/textColorPrimary"
         android:textSize="13dp" />
-    <TextView
-        android:id="@+id/tv_rupee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="13dp" />
-    <TextView
-        android:id="@+id/tv_rupeeval"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="13dp" />
 </LinearLayout>

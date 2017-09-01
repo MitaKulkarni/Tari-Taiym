@@ -27,6 +27,14 @@
         android:background="@drawable/rect_with_white_bg"
         tools:text="Inovice" />
 
+    <CheckBox
+        android:id="@+id/sms_dialog_layout_susbcribe_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8_dp"
+        android:layout_gravity="left"
+        android:text="@string/subscribe_lbl"/>
+
     <Button
         android:id="@+id/sms_dialog_layout_send_bt"
         style="@style/Widget.AppCompat.Button.Colored"

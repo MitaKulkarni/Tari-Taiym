@@ -17,15 +17,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.sales.tandt.AppConstants;
 import com.sales.tandt.R;
 import com.sales.tandt.adapters.InvoiceGenerateListAdapter;
+import com.sales.tandt.controller.AppController;
 import com.sales.tandt.listener.OnFoodItemAdded;
 import com.sales.tandt.models.FoodItems;
 import com.sales.tandt.util.AppPermissionsConstants;
+import com.sales.tandt.util.RequestUrl;
+import com.sales.tandt.util.Utilities;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -37,6 +49,7 @@ public class GenerateInvoiceActivity extends BaseActivity {
     private TextView mTotalTv;
     private ArrayList<FoodItems> mFoodItemList;
     private Dialog mSmsDialog;
+    private int mTotalAmount;
 
     @Override
     protected String getScreenName() {
@@ -85,6 +98,44 @@ public class GenerateInvoiceActivity extends BaseActivity {
         });
     }
 
+    private void sentDataToServer(String phone, String invoice, int total, boolean subscribe) {
+
+        if (Utilities.isNetworkAvailable(this)) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put(AppConstants.JsonConstants.PHONE, phone);
+                jsonObject.put(AppConstants.JsonConstants.INVOICE,invoice);
+                jsonObject.put(AppConstants.JsonConstants.TOTAL_AMOUNT, total);
+                jsonObject.put(AppConstants.JsonConstants.SUBSCRIBE, subscribe);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            showProgressDialog();
+            JsonObjectRequest addInvoiceTask = new JsonObjectRequest(Request.Method.POST, RequestUrl.addInvoiceUrl, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+                    hideProgressDialogs();
+                    Toast.makeText(GenerateInvoiceActivity.this, getString(R.string.add_food_item_success_msg), Toast.LENGTH_LONG).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    hideProgressDialogs();
+                    Toast.makeText(GenerateInvoiceActivity.this, getString(R.string.error_connecting), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            addInvoiceTask.setTag(TAG);
+            addInvoiceTask.setShouldCache(false);
+            AppController.getInstance().setRetryPolicy(addInvoiceTask);
+            AppController.getInstance().addToRequestQueue(addInvoiceTask);
+        } else {
+            Utilities.showToast(this, getString(R.string.no_internet_connection_error));
+        }
+    }
+
     private void calculateTotal() {
         mInvoiceDetails = "";
         int total = 0;
@@ -95,6 +146,7 @@ public class GenerateInvoiceActivity extends BaseActivity {
             mInvoiceDetails = mInvoiceDetails + foodItems.getDishName() + " quantity " + foodItems.getQuantity() + " Price: Rs. " + price + "\n";
         }
         mInvoiceDetails = mInvoiceDetails + "Total: Rs. " + total;
+        mTotalAmount = total;
 
         mTotalTv.setText(getString(R.string.total_cart_amount, total));
     }
@@ -109,6 +161,7 @@ public class GenerateInvoiceActivity extends BaseActivity {
         mSmsDialog.setContentView(dialogView);
 
         final EditText phoneEt = (EditText) dialogView.findViewById(R.id.sms_dialog_layout_phone_et);
+        final CheckBox subscribeCb = (CheckBox) dialogView.findViewById(R.id.sms_dialog_layout_susbcribe_cb);
         TextView invoiceDetailsTv = (TextView) dialogView.findViewById(R.id.sms_dialog_layout_invoice_text_tv);
         invoiceDetailsTv.setText(mInvoiceDetails);
         Button sendBt = (Button) dialogView.findViewById(R.id.sms_dialog_layout_send_bt);
@@ -117,6 +170,7 @@ public class GenerateInvoiceActivity extends BaseActivity {
             public void onClick(View v) {
 
                 mPhoneNo = phoneEt.getText().toString();
+                sentDataToServer(mPhoneNo,mInvoiceDetails, mTotalAmount,subscribeCb.isChecked());
                 checkPermission();
             }
         });

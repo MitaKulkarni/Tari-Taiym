@@ -18,6 +18,7 @@ import com.sales.tandt.AppConstants;
 import com.sales.tandt.R;
 import com.sales.tandt.controller.AppController;
 import com.sales.tandt.util.RequestUrl;
+import com.sales.tandt.util.Utilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,37 +61,42 @@ public class AddMenuItemsActivity extends BaseActivity {
     }
 
     private void sentDataToServer(String dishName, String price, String categoryType) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(AppConstants.JsonConstants.name, dishName);
-            jsonObject.put(AppConstants.JsonConstants.price, Integer.parseInt(price));
-            jsonObject.put(AppConstants.JsonConstants.type, categoryType);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (Utilities.isNetworkAvailable(AddMenuItemsActivity.this)) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put(AppConstants.JsonConstants.name, dishName);
+                jsonObject.put(AppConstants.JsonConstants.PRICE, Integer.parseInt(price));
+                jsonObject.put(AppConstants.JsonConstants.TYPE, categoryType);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            showProgressDialog();
+            JsonObjectRequest addMenuTask = new JsonObjectRequest(Request.Method.POST, RequestUrl.addMenuUrl, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+                    hideProgressDialogs();
+                    Toast.makeText(AddMenuItemsActivity.this, getString(R.string.add_food_item_success_msg), Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(AddMenuItemsActivity.this, FoodMenuListActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    AddMenuItemsActivity.this.finish();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    hideProgressDialogs();
+                    Toast.makeText(AddMenuItemsActivity.this, getString(R.string.error_connecting), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            addMenuTask.setTag(TAG);
+            addMenuTask.setShouldCache(false);
+            AppController.getInstance().setRetryPolicy(addMenuTask);
+            AppController.getInstance().addToRequestQueue(addMenuTask);
+        } else {
+            Utilities.showToast(this, getString(R.string.no_internet_connection_error));
         }
-
-        showProgressDialog();
-        JsonObjectRequest addMenuTask = new JsonObjectRequest(Request.Method.POST, RequestUrl.addMenuUrl, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-               hideProgressDialogs();
-                Toast.makeText(AddMenuItemsActivity.this, getString(R.string.add_food_item_success_msg), Toast.LENGTH_LONG);
-                startActivity(new Intent(AddMenuItemsActivity.this, FoodMenuListActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                AddMenuItemsActivity.this.finish();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-               hideProgressDialogs();
-                Toast.makeText(AddMenuItemsActivity.this, getString(R.string.error_connecting), Toast.LENGTH_LONG);
-            }
-        });
-
-        addMenuTask.setTag(TAG);
-        addMenuTask.setShouldCache(false);
-        AppController.getInstance().setRetryPolicy(addMenuTask);
-        AppController.getInstance().addToRequestQueue(addMenuTask);
     }
 
     @Override

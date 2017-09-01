@@ -7,8 +7,13 @@ package com.sales.tandt;
 public class AppConstants {
 
     public class JsonConstants{
-        public static final String name = "name";
-        public static final String price = "price";
-        public static final String type = "type";
+        public static final String NAME = "name";
+        public static final String PRICE = "price";
+        public static final String TYPE = "TYPE";
+
+        public static final String PHONE = "phone";
+        public static final String INVOICE = "invoice";
+        public static final String TOTAL_AMOUNT = "total_amount";
+        public static final String SUBSCRIBE = "subscribe";
     }
 }
